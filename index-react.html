@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="http://fb.me/react-0.8.0.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/javascript">
+     var A = React.createClass({
+       componentWillMount: function() {
+	 console.log("A will mount");
+       },
+       componentWillUnmount: function() {
+	 console.log("A will unmount");
+       },
+       render: function() {
+	 return React.DOM.div({
+           children: 'A'
+	 });
+       }
+     });
+     var B = React.createClass({
+       componentWillMount: function() {
+	 console.log("B will mount");
+       },
+       componentWillUnmount: function() {
+	 console.log("B will unmount");
+       },
+       render: function() {
+	 return React.DOM.div({
+           children: 'B'
+	 });
+       }
+     });
+     var C = React.createClass({
+       componentWillMount: function() {
+	 var c = this;
+	 setInterval(function() {
+	   c.setState({child: (new Date()).getTime() %2});
+	 }, 100);
+       },
+       render: function() {
+	 return React.DOM.div({
+           children: this.state && this.state.child == 0 ? A({}) : B({})
+	 });
+       }
+     });
+     React.renderComponent(C({}), document.getElementById('content'));
+    </script>
+  </body>
+</html>
